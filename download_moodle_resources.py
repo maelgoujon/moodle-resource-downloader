@@ -486,15 +486,6 @@ def main():
             logging.debug(f"Resources extracted: {len(resource_files)} files, {len(quiz_links)} quizzes, {len(h5p_links)} H5P links")
             logging.debug("Resource links fetched successfully")
 
-            # Unpack the outputs of get_resource_links
-            resource_links, embedded_resources, _ = get_resource_links(session, args.course_url, visited=set(), base_folder=args.out)
-
-            # Combine resource links and embedded resources into a single list
-            resource_files = resource_links + embedded_resources
-
-            # Transform quiz_links into dictionaries with required keys
-            quiz_links = [{'url': url, 'folder': args.out} for url in quiz_links]
-
             logging.debug("Downloading resources")
             # Download resources
             downloaded_files_count = download_resources(session, resource_files)
